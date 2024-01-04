@@ -1,0 +1,65 @@
+#!/bin/bash
+set -e
+#set -x
+condauser=miniconda
+condagroup=conda
+
+function install_from_online_repo() {
+	# user and group id number 0 is always root
+	# from: https://stackoverflow.com/questions/14810684/check-whether-a-user-exists
+        #if [ ! `id -u $condauser 2> /dev/null || echo -1` -ge 0 ]; then
+        #    echo "creating user: $condauser"
+        #    useradd --system --home-dir /opt/miniconda --create-home $condauser
+        #fi
+
+        #if [ `getent group $condagroup | wc -l` -eq 0 ]; then
+        #    echo "creating group: $condagroup"
+        #    groupadd $condagroup
+	#    adduser $condauser $condagroup
+        #fi
+
+	#install -d -o $condauser -g $condagroup /opt/miniconda # make dir as user
+
+	#mkdir -p /opt/miniconda
+	#chown $condauser:$condagroup /opt/miniconda
+	if [ ! -d /opt/miniconda/miniconda3 ]; then
+	    # from: https://groups.google.com/a/continuum.io/forum/#!msg/anaconda/qinxkmvlnSg/tCiE_yvgDAAJ
+	    #sudo -H -u $condauser sh /opt/miniconda3-installer/Miniconda3-latest-Linux-x86_64.sh -b -p /opt/miniconda/miniconda3
+	    sh /opt/miniconda3-installer/Miniconda3-latest-Linux-x86_64.sh -b -p /opt/miniconda/miniconda3
+
+	    #sudo -H -u $condauser
+	    #/opt/miniconda/miniconda3/bin/conda update --yes --name base conda # update conda
+
+	    #install -d -o $condauser -g $condagroup /opt/miniconda/.conda # make dir as user
+	    #install -d -o $condauser -g $condagroup /opt/miniconda/.conda/pkgs # make dir as user
+	fi
+
+	#if ! /opt/miniconda/miniconda3/bin/conda env list | grep -q neuroreader; then
+	    #sudo -H -u $condauser 
+	    ##/opt/miniconda/miniconda3/bin/conda create --yes --quiet --name neuroreader python=3.6.4
+
+	    #sudo -H -u $condauser /opt/miniconda/miniconda3/bin/pip install -r /opt/miniconda/requirements-development.txt
+	#fi
+	/opt/miniconda/miniconda3/bin/conda env update -f /opt/miniconda/conda_environment_development.yml
+
+	#chown -R $condauser:$condagroup /opt/miniconda
+	#chmod -R go-w /opt/miniconda
+	#chmod -R go+rX /opt/miniconda
+}
+
+case "$1" in
+    configure|install)
+        echo "Running post install script"
+	# see: https://conda.github.io/conda-pack/
+	/opt/miniconda/miniconda3/bin/python3 /opt/miniconda/miniconda3/bin/conda-unpack
+
+        ;;
+
+    upgrade|abort-upgrade)
+        ;;
+
+    *)
+        exit 0
+        ;;
+esac
+exit 0
