@@ -7,7 +7,9 @@ Inspired by: [ContinuumIO miniconda3 docker-image](https://github.com/ContinuumI
 ```bash
 rm -rf build && ./scripts/build_using_docker.sh
 # fails if packages have been updated
-cp build/conda_environment_development_installed.yml md5sums_without_pyc_and_history approved_files/
+cp conda-environment-for-image-processing.md5sums_without_pyc_and_history approved_files/
+./scripts/build_using_docker.sh
+cp build/conda-environment-for-image-processing_installed.yml approved_files/
 ./scripts/build_using_docker.sh
 ```
 
@@ -15,9 +17,9 @@ cp build/conda_environment_development_installed.yml md5sums_without_pyc_and_his
 
 ```bash
 git status
-git diff approved_files/conda_environment_development_installed.yml approved_files/md5sums_without_pyc_and_history scripts/conda_environment_development_clean.yml
+git diff approved_files/conda-environment-for-image-processing_installed.yml approved_files/conda-environment-for-image-processing.md5sums_without_pyc_and_history scripts/conda_environment_development_clean.yml
 
-git add approved_files/conda_environment_development_installed.yml approved_files/md5sums_without_pyc_and_history scripts/conda_environment_development_clean.yml
+git add approved_files/conda-environment-for-image-processing_installed.yml approved_files/conda-environment-for-image-processing.md5sums_without_pyc_and_history scripts/conda_environment_development_clean.yml
 git commit...
 git push
 ```

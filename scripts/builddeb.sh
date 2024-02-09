@@ -8,7 +8,8 @@ cd ${script_dir}/..
 BUILD_NUMBER=$1
 version="1.0.0"
 
-package="pkg-conda-environment-for-image-processing"
+conda_env_name="conda-environment-for-image-processing"
+package="pkg-${conda_env_name}"
 maintainer="Conda <https://github.com/conda/conda/issues>"
 arch="all"
 
@@ -22,7 +23,7 @@ mkdir -p ${deb_root}/DEBIAN
 #tools_dir=${deb_root}/opt/miniconda/
 #mkdir -p ${tools_dir}
 ##cp scripts/requirements-development.txt ${tools_dir}
-#cp scripts/conda_environment_development.yml ${tools_dir}
+#cp scripts/${conda_env_name}.yml ${tools_dir}
 
 #wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 #mkdir -p ${deb_root}/opt/miniconda3-installer/
@@ -31,7 +32,7 @@ mkdir -p ${deb_root}/DEBIAN
 # the final build/installed conda contains: cat /opt/miniconda/miniconda3/conda | head -n 1 = /usr/bin/python
 #instdir=miniconda3
 #sh Miniconda3-latest-Linux-x86_64.sh -b -p $instdir
-#$instdir/bin/conda env update -f scripts/conda_environment_development.yml
+#$instdir/bin/conda env update -f scripts/${conda_env_name}.yml
 #$instdir/bin/pip install conda-pack
 #$instdir/bin/conda pack
 #dst=${deb_root}/opt/miniconda/miniconda3
@@ -70,12 +71,12 @@ ln -s /usr $root/usr
 cp scripts/install_conda_base.sh $root/
 fakechroot fakeroot chroot $root ./install_conda_base.sh $miniconda $instdir
 
-conda_conf_file=conda_environment_development_clean.yml
+conda_conf_file=${conda_env_name}_clean.yml
 cp scripts/$conda_conf_file $root/
 ln -s /etc $root/etc
 fakechroot fakeroot chroot $root $instdir/bin/conda env update -f $conda_conf_file
 
-fakechroot fakeroot chroot $root $instdir/bin/conda env export -n base > $root/conda_environment_development_installed.yml
+fakechroot fakeroot chroot $root $instdir/bin/conda env export -n base > $root/${conda_env_name}_installed.yml
 
 # conda doctor reports these missing:
 #find root/opt/ -name __pycache__ -exec rm -r {} +
@@ -109,16 +110,16 @@ cd ${cwd}
 # excluded from the md5sum validation process
 # see: https://github.com/python/cpython/issues/73894 and
 # https://github.com/conda/conda-package-handling/issues/1
-cat debian/DEBIAN/md5sums | grep -v ".pyc$" | grep -v "conda-meta/history$" > md5sums_without_pyc_and_history
+cat debian/DEBIAN/md5sums | grep -v ".pyc$" | grep -v "conda-meta/history$" > ${conda_env_name}.md5sums_without_pyc_and_history
 
 # approving files by:
-# cp $root/conda_environment_development_installed.yml debian/DEBIAN/md5sums approved_files/
+# cp $root/${conda_env_name}_installed.yml debian/DEBIAN/md5sums approved_files/
 
 # validate that files have not changed
 # diff -s debian/DEBIAN/md5sums approved_files/md5sums
-diff -s md5sums_without_pyc_and_history approved_files/md5sums_without_pyc_and_history
-rm md5sums_without_pyc_and_history
-diff -s $root/conda_environment_development_installed.yml approved_files/conda_environment_development_installed.yml
+diff -s ${conda_env_name}.md5sums_without_pyc_and_history approved_files/${conda_env_name}.md5sums_without_pyc_and_history
+rm ${conda_env_name}.md5sums_without_pyc_and_history
+diff -s $root/${conda_env_name}_installed.yml approved_files/${conda_env_name}_installed.yml
 
 #date=`date -u +%Y%m%d`
 #echo "date=$date"
