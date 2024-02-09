@@ -100,8 +100,8 @@ rsync -axHAX $root/opt ${deb_root}/
 
 echo "Compute md5 checksum."
 cwd=$(pwd)
-cd ${deb_root}
 mkdir -p ${deb_root}/DEBIAN
+cd ${deb_root}
 find . -type f ! -regex '.*?debian-binary.*' ! -regex '.*?DEBIAN.*' -print0 | tr '\0' '\n' | sort | xargs -d '\n' md5sum > DEBIAN/md5sums
 cd ${cwd}
 
