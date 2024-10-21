@@ -17,9 +17,9 @@ cp build/conda-environment-for-image-processing_installed.yml approved_files/
 
 ```bash
 git status
-git diff approved_files/conda-environment-for-image-processing_installed.yml approved_files/conda-environment-for-image-processing.md5sums_without_pyc_and_history scripts/conda_environment_development_clean.yml
+git diff approved_files/conda-environment-for-image-processing_installed.yml approved_files/conda-environment-for-image-processing.md5sums_without_pyc_and_history scripts/conda-environment-for-image-processing_clean.yml
 
-git add approved_files/conda-environment-for-image-processing_installed.yml approved_files/conda-environment-for-image-processing.md5sums_without_pyc_and_history scripts/conda_environment_development_clean.yml
+git add approved_files/conda-environment-for-image-processing_installed.yml approved_files/conda-environment-for-image-processing.md5sums_without_pyc_and_history scripts/conda-environment-for-image-processing_clean.yml
 git commit...
 git push
 ```
