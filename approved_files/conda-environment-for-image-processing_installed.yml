@@ -7,16 +7,15 @@ dependencies:
   - blas=1.0=mkl
   - boltons=23.0.0=py310h06a4308_0
   - bottleneck=1.3.4=py310h9102076_0
-  - brotlipy=0.7.0=py310h7f8727e_1002
   - bzip2=1.0.8=h7b6447c_0
-  - ca-certificates=2023.12.12=h06a4308_0
+  - ca-certificates=2024.9.24=h06a4308_0
   - cairo=1.16.0=hf32fb01_1
-  - certifi=2023.11.17=py310h06a4308_0
+  - certifi=2024.8.30=py310h06a4308_0
   - cffi=1.15.0=py310hd667e15_1
   - chardet=4.0.0=py310h06a4308_1003
   - conda=23.9.0=py310h06a4308_0
-  - conda-package-handling=2.2.0=py310h06a4308_0
-  - conda-package-streaming=0.9.0=py310h06a4308_0
+  - conda-package-handling=2.3.0=py310h06a4308_0
+  - conda-package-streaming=0.10.0=py310h06a4308_0
   - cryptography=41.0.3=py310h130f0dd_0
   - fontconfig=2.13.1=h6c09931_0
   - freetype=2.11.0=h70c0345_0
@@ -27,9 +26,10 @@ dependencies:
   - harfbuzz=2.8.1=h6f93f22_0
   - hdf5=1.10.6=hb1b8bf9_0
   - icu=58.2=he6710b0_3
-  - idna=3.4=py310h06a4308_0
+  - idna=3.7=py310h06a4308_0
   - intel-openmp=2021.4.0=h06a4308_3561
-  - ld_impl_linux-64=2.38=h1181459_1
+  - jsonpatch=1.33=py310h06a4308_1
+  - ld_impl_linux-64=2.40=h12ee557_0
   - libedit=3.1.20181209=hc058e9b_0
   - libffi=3.3=he6710b0_2
   - libgcc-ng=8.2.0=hdf63c60_1
@@ -48,96 +48,96 @@ dependencies:
   - numpy=1.22.3=py310hfa59a62_0
   - numpy-base=1.22.3=py310h9585f30_0
   - openssl=1.1.1w=h7f8727e_0
-  - packaging=23.1=py310h06a4308_0
+  - packaging=24.1=py310h06a4308_0
   - pandas=1.4.2=py310h295c915_0
   - pango=1.45.3=hd140c19_0
   - pcre=8.45=h295c915_0
-  - pip=23.3.1=py310h06a4308_0
+  - pip=24.2=py310h06a4308_0
   - pixman=0.40.0=h7f8727e_1
   - pluggy=1.0.0=py310h06a4308_1
   - pycosat=0.6.3=py310h7f8727e_0
   - pyopenssl=23.2.0=py310h06a4308_0
   - pysocks=1.7.1=py310h06a4308_0
   - python=3.10.4=h12debd9_0
-  - pytz=2023.3.post1=py310h06a4308_0
+  - python-dateutil=2.9.0post0=py310h06a4308_2
+  - pytz=2024.1=py310h06a4308_0
   - readline=8.1.2=h7f8727e_1
-  - requests=2.31.0=py310h06a4308_0
+  - requests=2.32.3=py310h06a4308_0
   - ruamel.yaml=0.16.10=py310h7f8727e_1
   - ruamel.yaml.clib=0.2.6=py310h7f8727e_0
   - ruamel_yaml=0.15.100=py310h7f8727e_0
-  - setuptools=68.2.2=py310h06a4308_0
+  - setuptools=75.1.0=py310h06a4308_0
   - sqlite=3.38.2=hc218d9a_0
   - tk=8.6.11=h1ccaba5_0
-  - tqdm=4.65.0=py310h2f386ee_0
+  - tqdm=4.66.5=py310h2f386ee_0
   - truststore=0.8.0=py310h06a4308_0
-  - tzdata=2023c=h04d1e81_0
-  - urllib3=1.26.16=py310h06a4308_0
-  - wheel=0.41.2=py310h06a4308_0
+  - tzdata=2024b=h04d1e81_0
+  - urllib3=2.1.0=py310h06a4308_0
+  - wheel=0.44.0=py310h06a4308_0
   - xz=5.2.5=h7f8727e_1
   - yaml=0.2.5=h7b6447c_0
   - zlib=1.2.11=h7b6447c_3
   - zstandard=0.15.2=py310h7f8727e_0
   - pip:
-      - attrs==23.2.0
-      - bcrypt==4.1.2
+      - attrs==24.2.0
+      - bcrypt==4.2.0
       - brotli==1.1.0
-      - charset-normalizer==2.0.4
-      - contourpy==1.2.0
+      - charset-normalizer==3.3.2
+      - contourpy==1.2.1
       - cssselect2==0.7.0
       - cycler==0.12.1
       - defusedxml==0.7.1
-      - dicom-anonymizer==1.0.11
+      - dicom-anonymizer==1.0.13.post1
       - et-xmlfile==1.1.0
-      - fonttools==4.47.0
+      - fonttools==4.54.1
       - html5lib==1.1
-      - imageio==2.33.1
-      - itk==5.3.0
-      - itk-core==5.3.0
-      - itk-filtering==5.3.0
-      - itk-io==5.3.0
-      - itk-numerics==5.3.0
-      - itk-registration==5.3.0
-      - itk-segmentation==5.3.0
-      - jinja2==3.1.2
-      - joblib==1.3.2
-      - jsonpatch==1.32
+      - imageio==2.36.0
+      - importlib-resources==6.4.5
+      - itk==5.4.0
+      - itk-core==5.4.0
+      - itk-filtering==5.4.0
+      - itk-io==5.4.0
+      - itk-numerics==5.4.0
+      - itk-registration==5.4.0
+      - itk-segmentation==5.4.0
+      - jinja2==3.1.4
+      - joblib==1.4.2
       - jsonpointer==2.1
-      - jsonschema==4.20.0
-      - jsonschema-specifications==2023.12.1
-      - kiwisolver==1.4.5
-      - lazy-loader==0.3
-      - markupsafe==2.1.3
-      - matplotlib==3.8.2
-      - mysql-connector-python==8.2.0
-      - networkx==3.2.1
-      - nibabel==5.2.0
-      - openpyxl==3.1.2
-      - paramiko==3.4.0
+      - jsonschema==4.23.0
+      - jsonschema-specifications==2024.10.1
+      - kiwisolver==1.4.7
+      - lazy-loader==0.4
+      - markupsafe==3.0.2
+      - matplotlib==3.8.4
+      - mysql-connector-python==9.1.0
+      - networkx==3.4.1
+      - nibabel==5.3.1
+      - openpyxl==3.1.5
+      - paramiko==3.5.0
       - parmap==1.7.0
       - pdfrw==0.4
-      - pillow==10.2.0
-      - portalocker==2.8.2
-      - protobuf==4.21.12
+      - pillow==11.0.0
+      - portalocker==2.10.1
       - pycparser==2.21
       - pydicom==2.4.4
-      - pydyf==0.8.0
+      - pydyf==0.11.0
       - pynacl==1.5.0
-      - pyparsing==3.1.1
-      - pyphen==0.14.0
+      - pyparsing==3.2.0
+      - pyphen==0.16.0
       - pysftp==0.2.9
-      - python-dateutil==2.8.2
-      - referencing==0.32.0
-      - rpds-py==0.16.2
+      - referencing==0.35.1
+      - rpds-py==0.20.0
       - scikit-image==0.22.0
-      - scikit-learn==1.3.2
+      - scikit-learn==1.5.2
       - scipy==1.11.4
-      - simpleitk==2.3.1
+      - simpleitk==2.4.0
       - six==1.16.0
-      - threadpoolctl==3.2.0
-      - tifffile==2023.12.9
-      - tinycss2==1.2.1
-      - weasyprint==60.2
+      - threadpoolctl==3.5.0
+      - tifffile==2024.9.20
+      - tinycss2==1.3.0
+      - typing-extensions==4.12.2
+      - weasyprint==62.3
       - webencodings==0.5.1
-      - xmltodict==0.13.0
-      - zopfli==0.2.3
+      - xmltodict==0.14.2
+      - zopfli==0.2.3.post1
 prefix: /opt/conda

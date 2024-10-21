@@ -21,6 +21,7 @@ dependencies:
     - jsonschema  # to enabled json schema input validation
     - matplotlib
     - mysql-connector-python
+    - numpy==1.22.3  # pinned so that dependencies does not upgrade it to 2.1.2 as this causes problems
     - nibabel
     - openpyxl  # needed for pandas to generated Excel Sheet
     - paramiko
