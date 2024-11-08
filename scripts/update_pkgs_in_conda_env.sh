@@ -51,7 +51,6 @@ mkdir -p ${deb_root}/DEBIAN
 # “shbang” lines #!/path/to/original/bin/python are not updated by a cp or mv operation. The path either will not exist in
 # the new location, or the effect of copying it will result in using the “old locations” libraries (etc.).
 instdir=/opt/conda
-root=build
 
 #miniconda=Miniconda3-4.4.10-Linux-x86_64.sh  # from: https://repo.anaconda.com/miniconda/
 miniconda=Miniconda3-4.6.14-Linux-x86_64.sh  # newest version that still works together with fakechroot...
@@ -62,26 +61,15 @@ if [[ ! -f $dwndir/$miniconda ]]; then
     wget https://repo.anaconda.com/miniconda/$miniconda -O $dwndir/$miniconda
 fi
 
-# rm -rf $root/*
-mkdir -p $root
-
 cwd=`pwd`
-if [[ ! -f $root/$miniconda ]]; then
-    cp -a $dwndir/$miniconda $root/$miniconda
-fi
 
-if [ ! -d $root/opt ]; then
-ln -s /bin $root/bin
-ln -s /usr $root/usr
+if [ ! -d /opt/conda ]; then
 
-cp scripts/install_conda_base.sh $root/
-fakechroot fakeroot chroot $root ./install_conda_base.sh $miniconda $instdir
+./scripts/install_conda_base.sh $dwndir/$miniconda $instdir
 
-conda=fakechroot fakeroot chroot $root $instdir/bin/conda
+conda=$instdir/bin/conda
 
 conda_conf_file=${conda_env_name}_clean.yml
-cp scripts/$conda_conf_file $root/
-ln -s /etc $root/etc
 $conda env update -f scripts/$conda_conf_file
 
 $conda env export -n base > ${conda_env_name}_installed.yml
@@ -97,7 +85,7 @@ $conda clean -afy
 $conda doctor -v
 
 fi
-rsync -axHAX $root/opt ${deb_root}/
+rsync -axHAX /opt ${deb_root}/
 # the following is not used because it makes /opt/miniconda/miniconda3/bin/conda first line be
 # /usr/bin/env python and we actually want it to be /opt/miniconda/miniconda3/bin/python
 # or else when execution sudo /opt/miniconda/miniconda3/bin/conda and error is reported
@@ -121,21 +109,18 @@ cd ${cwd}
 ###cat debian/DEBIAN/md5sums | grep -v ".pyc$" | grep -v "conda-meta/history$" > ${conda_env_name}.md5sums_without_pyc_and_history
 
 # approving files by:
-# cp $root/${conda_env_name}_installed.yml debian/DEBIAN/md5sums approved_files/
+# cp ${conda_env_name}_installed.yml debian/DEBIAN/md5sums approved_files/${conda_env_name}_installed.yml
 
 # validate that files have not changed
 # diff -s debian/DEBIAN/md5sums approved_files/md5sums
 ###diff -s ${conda_env_name}.md5sums_without_pyc_and_history approved_files/${conda_env_name}.md5sums_without_pyc_and_history
 ###rm ${conda_env_name}.md5sums_without_pyc_and_history
-diff -s $root/${conda_env_name}_installed.yml approved_files/${conda_env_name}_installed.yml
+diff -s ${conda_env_name}_installed.yml approved_files/${conda_env_name}_installed.yml
 
 #date=`date -u +%Y%m%d`
 #echo "date=$date"
 
-#gitrev=`git rev-parse HEAD | cut -b 1-8`
-gitrevfull=`git rev-parse HEAD`
-gitrevnum=`git log --oneline | wc -l | tr -d ' '`
-#echo "gitrev=$gitrev"
+source /builddir/git_vars
 
 buildtimestamp=`date -u +%Y%m%d-%H%M%S`
 hostname=`hostname`
