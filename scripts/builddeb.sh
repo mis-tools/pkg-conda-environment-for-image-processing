@@ -56,12 +56,18 @@ root=build
 #miniconda=Miniconda3-4.4.10-Linux-x86_64.sh  # from: https://repo.anaconda.com/miniconda/
 miniconda=Miniconda3-4.6.14-Linux-x86_64.sh  # newest version that still works together with fakechroot...
 
+dwndir=downloads
+mkdir -p $dwndir
+if [[ ! -f $dwndir/$miniconda ]]; then
+    wget https://repo.anaconda.com/miniconda/$miniconda -O $dwndir/$miniconda
+fi
+
 # rm -rf $root/*
 mkdir -p $root
 
 cwd=`pwd`
 if [[ ! -f $root/$miniconda ]]; then
-    wget https://repo.anaconda.com/miniconda/$miniconda -O $root/$miniconda
+    cp -a $dwndir/$miniconda $root/$miniconda
 fi
 
 if [ ! -d $root/opt ]; then
