@@ -77,22 +77,24 @@ ln -s /usr $root/usr
 cp scripts/install_conda_base.sh $root/
 fakechroot fakeroot chroot $root ./install_conda_base.sh $miniconda $instdir
 
+conda=fakechroot fakeroot chroot $root $instdir/bin/conda
+
 conda_conf_file=${conda_env_name}_installed.yml
 cp approved_files/$conda_conf_file $root/
 ln -s /etc $root/etc
-fakechroot fakeroot chroot $root $instdir/bin/conda env update -f $conda_conf_file
+$conda env update -f $conda_conf_file
 
-fakechroot fakeroot chroot $root $instdir/bin/conda env export -n base > $root/${conda_env_name}_reinstalled.yml
+$conda env export -n base > $root/${conda_env_name}_reinstalled.yml
 
 # conda doctor reports these missing:
 #find root/opt/ -name __pycache__ -exec rm -r {} +
 #find root/opt/ -name *.pyc -exec rm {} \;
 
 #rm root/opt/miniconda/miniconda3/pkgs/cache/*
-fakechroot fakeroot chroot $root $instdir/bin/conda clean -afy
+$conda clean -afy
 # from: https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/debian/Dockerfile
 
-fakechroot fakeroot chroot $root $instdir/bin/conda doctor -v
+$conda doctor -v
 
 fi
 rsync -axHAX $root/opt ${deb_root}/
