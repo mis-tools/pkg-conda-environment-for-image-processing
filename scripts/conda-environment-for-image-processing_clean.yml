@@ -6,7 +6,7 @@ dependencies:
   - h5py
   - hdf5
   - intel-openmp
-  - mkl=2021.4.0=h06a4308_640
+  - mkl=2021.4.0
   - numpy
   - packaging  # needed to compare version strings
   - pandas
