@@ -62,7 +62,7 @@ dependencies:
   - python-dateutil=2.9.0post0=py310h06a4308_2
   - pytz=2024.1=py310h06a4308_0
   - readline=8.1.2=h7f8727e_1
-  - requests=2.32.3=py310h06a4308_0
+  - requests=2.32.3=py310h06a4308_1
   - ruamel.yaml=0.16.10=py310h7f8727e_1
   - ruamel.yaml.clib=0.2.6=py310h7f8727e_0
   - ruamel_yaml=0.15.100=py310h7f8727e_0
