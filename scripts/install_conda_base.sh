@@ -8,7 +8,7 @@ instdir=$2
 #mkdir -p $root/$instdir/lib/
 #cd $instdir/lib/
 
-sh $miniconda -b -p $instdir
+bash $miniconda -b -p $instdir
 
 # remove initial install python version and installed packages
 # from: https://stackoverflow.com/questions/52830307/conda-remove-all-installed-packages-from-base-root-environment

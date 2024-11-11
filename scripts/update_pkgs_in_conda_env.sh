@@ -61,6 +61,7 @@ miniconda=Miniconda3-py37_4.8.2-Linux-x86_64.sh # working after fakeroot was rem
 #miniconda=Miniconda3-py37_4.9.2-Linux-x86_64.sh # no module urlib
 miniconda=Miniconda3-py37_4.12.0-Linux-x86_64.sh
 miniconda=Miniconda3-py39_4.12.0-Linux-x86_64.sh
+miniconda=Miniconda3-py39_22.11.1-1-Linux-x86_64.sh # 438: [[: not found, and switched to blas
 
 dwndir=downloads
 mkdir -p $dwndir
@@ -69,6 +70,8 @@ if [[ ! -f $dwndir/$miniconda ]]; then
 fi
 
 cwd=`pwd`
+
+HOME=/builddir
 
 if [ ! -d /opt/conda ]; then
 
