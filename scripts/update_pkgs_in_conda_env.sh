@@ -54,6 +54,12 @@ instdir=/opt/conda
 
 #miniconda=Miniconda3-4.4.10-Linux-x86_64.sh  # from: https://repo.anaconda.com/miniconda/
 miniconda=Miniconda3-4.6.14-Linux-x86_64.sh  # newest version that still works together with fakechroot...
+miniconda=Miniconda3-4.7.10-Linux-x86_64.sh  # Error loading Python lib '/opt/conda/libpython3.6m.so.1.0':
+miniconda=Miniconda3-py37_4.8.2-Linux-x86_64.sh # working after fakeroot was removed and instdir was changed to ./opt/conda instead of /opt/conda
+#miniconda=Miniconda3-py312_24.5.0-0-Linux-x86_64.sh # mkdir: cannot create directory
+#miniconda=Miniconda3-py37_4.10.3-Linux-x86_64.sh # no module request
+#miniconda=Miniconda3-py37_4.9.2-Linux-x86_64.sh # no module urlib
+miniconda=Miniconda3-py37_4.12.0-Linux-x86_64.sh
 
 dwndir=downloads
 mkdir -p $dwndir
