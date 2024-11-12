@@ -11,6 +11,8 @@ rm -rf mounts && ./scripts/update_pkgs_in_conda_env_using_docker.sh
 cp mounts/builddir/conda-environment-for-image-processing_installed.yml approved_files/
 rm -rf mounts && ./scripts/update_pkgs_in_conda_env_using_docker.sh
 
+git diff approved_files/conda-environment-for-image-processing_installed.yml  # to check if and what have changed
+
 # two phases needed because using env file _clean.yml and _installed.yml does not
 # produce files with same md5sums (package management conf files).
 
@@ -18,6 +20,8 @@ rm -rf mounts && ./scripts/update_pkgs_in_conda_env_using_docker.sh
 rm -rf mounts && ./scripts/build_using_docker.sh
 # fails if packages have been updated
 cp mounts/builddir/conda-environment-for-image-processing.md5sums_without_pyc_and_history approved_files/
+git status  # to check if and what have changed
+
 rm -rf mounts && ./scripts/build_using_docker.sh
 ```
 

@@ -80,10 +80,11 @@ if [ ! -d /opt/conda ]; then
 
 conda=$instdir/bin/conda
 
-conda_conf_file=${conda_env_name}_clean.yml
-$conda env update -f scripts/$conda_conf_file
+conda_conf_file=scripts/${conda_env_name}_clean.yml
+$conda env update -f $conda_conf_file
 
-$conda env export -n base > ${conda_env_name}_installed.yml
+conda_output_env_file=${conda_env_name}_installed.yml
+$conda env export -n base > $conda_output_env_file
 
 # conda doctor reports these missing:
 #find root/opt/ -name __pycache__ -exec rm -r {} +
@@ -118,15 +119,17 @@ cd ${cwd}
 # see: https://github.com/python/cpython/issues/73894 and
 # https://github.com/conda/conda-package-handling/issues/1
 ###cat debian/DEBIAN/md5sums | grep -v ".pyc$" | grep -v "conda-meta/history$" > ${conda_env_name}.md5sums_without_pyc_and_history
+### disabled because the files are different when specific versions are
+### not incluede in the conda environment yml file
 
 # approving files by:
-# cp ${conda_env_name}_installed.yml debian/DEBIAN/md5sums approved_files/${conda_env_name}_installed.yml
+# cp $conda_output_env_file approved_files/${conda_env_name}_installed.yml
 
 # validate that files have not changed
 # diff -s debian/DEBIAN/md5sums approved_files/md5sums
 ###diff -s ${conda_env_name}.md5sums_without_pyc_and_history approved_files/${conda_env_name}.md5sums_without_pyc_and_history
 ###rm ${conda_env_name}.md5sums_without_pyc_and_history
-diff -s ${conda_env_name}_installed.yml approved_files/${conda_env_name}_installed.yml
+diff -s $conda_output_env_file approved_files/${conda_env_name}_installed.yml
 
 #date=`date -u +%Y%m%d`
 #echo "date=$date"
