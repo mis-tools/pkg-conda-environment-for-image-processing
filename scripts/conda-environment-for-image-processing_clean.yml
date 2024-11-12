@@ -13,7 +13,7 @@ dependencies:
   - pandas
   - pango  # needed by weasyprint
   - pip
-  - python=3.10
+  - python=3.11
   - pip:
     - defusedxml  # needed by openpyxl to generate Excel Sheet
     - dicom-anonymizer  # needed to anonymize dicom input files
