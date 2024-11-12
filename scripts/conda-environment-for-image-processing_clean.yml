@@ -7,8 +7,8 @@ dependencies:
   - hdf5
   - intel-openmp
   - blas=*=mkl  # so blas is replaced by mkl, needed in Miniconda3-py37_22.11.1-1-Linux-x86_64.sh and forward
-  - mkl=2021.4.0
-  - numpy
+  - mkl=2023.1.0
+  - numpy=1.24.3  # pinned to make np.__config__.lapack_mkl_info keep working (not working in 1.26.0, AttributeError: module 'numpy.__config__' has no attribute 'lapack_mkl_info')
   - packaging  # needed to compare version strings
   - pandas
   - pango  # needed by weasyprint
