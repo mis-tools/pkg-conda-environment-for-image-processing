@@ -124,7 +124,7 @@ dependencies:
       - defusedxml==0.7.1
       - dicom-anonymizer==1.0.13.post1
       - et-xmlfile==2.0.0
-      - fonttools==4.54.1
+      - fonttools==4.55.0
       - imageio==2.36.0
       - itk==5.4.0
       - itk-core==5.4.0
