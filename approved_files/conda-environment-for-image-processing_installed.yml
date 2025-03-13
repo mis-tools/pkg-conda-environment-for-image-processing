@@ -169,6 +169,7 @@ dependencies:
       - tinycss2==1.4.0
       - tinyhtml5==2.0.0
       - typing-extensions==4.12.2
+      - watchdog==6.0.0
       - weasyprint==64.1
       - webencodings==0.5.1
       - xmltodict==0.14.2

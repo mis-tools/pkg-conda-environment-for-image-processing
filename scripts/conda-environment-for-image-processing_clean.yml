@@ -37,3 +37,4 @@ dependencies:
     - scikit-image
     - scikit-learn
     - simpleitk
+    - watchdog
