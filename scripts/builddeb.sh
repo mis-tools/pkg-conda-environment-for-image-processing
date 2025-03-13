@@ -125,9 +125,9 @@ cat debian/DEBIAN/md5sums | grep -v ".pyc$" | grep -v "conda-meta/history$" > ${
 
 # validate that files have not changed
 # diff -s debian/DEBIAN/md5sums approved_files/md5sums
-diff -s ${conda_env_name}.md5sums_without_pyc_and_history approved_files/${conda_env_name}.md5sums_without_pyc_and_history
+diff -s approved_files/${conda_env_name}.md5sums_without_pyc_and_history ${conda_env_name}.md5sums_without_pyc_and_history
 rm ${conda_env_name}.md5sums_without_pyc_and_history
-diff -s $conda_output_env_file approved_files/${conda_env_name}_installed.yml
+diff -s approved_files/${conda_env_name}_installed.yml $conda_output_env_file
 
 #date=`date -u +%Y%m%d`
 #echo "date=$date"
