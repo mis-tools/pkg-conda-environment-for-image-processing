@@ -81,10 +81,10 @@ dependencies:
   - numpy-base=2.3.1=py312h06ae042_0
   - openssl=3.0.17=h5eee18b_0
   - packaging=25.0=py312h06a4308_0
-  - pandas=2.3.1=py312h277b779_0
+  - pandas=2.3.2=py312h277b779_0
   - pango=1.50.7=h668f713_2
   - pcre2=10.42=hebb0a14_1
-  - pip=25.1=pyhc872135_2
+  - pip=25.2=pyhc872135_0
   - pixman=0.46.4=h7934f7d_0
   - platformdirs=3.10.0=py312h06a4308_0
   - pluggy=1.0.0=py312h06a4308_1
@@ -145,7 +145,7 @@ dependencies:
       - kiwisolver==1.4.9
       - lazy-loader==0.4
       - markupsafe==3.0.2
-      - matplotlib==3.10.5
+      - matplotlib==3.10.6
       - networkx==3.5
       - nibabel==5.3.2
       - nvidia-ml-py==13.580.65
