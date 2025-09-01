@@ -10,35 +10,12 @@ version="1.0.0"
 
 conda_env_name="conda-environment-for-image-processing"
 package="pkg-${conda_env_name}"
-maintainer="Conda <https://github.com/conda/conda/issues>"
+maintainer="Conda-forge <https://github.com/conda-forge/miniforge/issues>"
 arch="all"
 
 deb_root="debian"
 rm -rf ${deb_root}
 mkdir -p ${deb_root}/DEBIAN
-
-#cp scripts/postinst ${deb_root}/DEBIAN/postinst
-#chmod 755 ${deb_root}/DEBIAN/postinst
-
-#tools_dir=${deb_root}/opt/miniconda/
-#mkdir -p ${tools_dir}
-##cp scripts/requirements-development.txt ${tools_dir}
-#cp scripts/${conda_env_name}.yml ${tools_dir}
-
-#wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-#mkdir -p ${deb_root}/opt/miniconda3-installer/
-#cp Miniconda3-latest-Linux-x86_64.sh ${deb_root}/opt/miniconda3-installer/
-
-# the final build/installed conda contains: cat /opt/miniconda/miniconda3/conda | head -n 1 = /usr/bin/python
-#instdir=miniconda3
-#sh Miniconda3-latest-Linux-x86_64.sh -b -p $instdir
-#$instdir/bin/conda env update -f scripts/${conda_env_name}.yml
-#$instdir/bin/pip install conda-pack
-#$instdir/bin/conda pack
-#dst=${deb_root}/opt/miniconda/miniconda3
-#mkdir -p $dst
-#tar -xzf miniconda3.tar.gz --directory $dst
-
 
 # the final build/installed conda contains: cat /opt/miniconda/miniconda3/conda | head -n 1 = /opt/miniconda/miniconda3/bin/conda
 # the conda interpreter should be used inside the conda script, else "sudo /opt/miniconda/miniconda3/bin/conda"
@@ -52,22 +29,13 @@ mkdir -p ${deb_root}/DEBIAN
 # the new location, or the effect of copying it will result in using the “old locations” libraries (etc.).
 instdir=/opt/conda
 
-#miniconda=Miniconda3-4.4.10-Linux-x86_64.sh  # from: https://repo.anaconda.com/miniconda/
-miniconda=Miniconda3-4.6.14-Linux-x86_64.sh  # newest version that still works together with fakechroot...
-miniconda=Miniconda3-4.7.10-Linux-x86_64.sh  # Error loading Python lib '/opt/conda/libpython3.6m.so.1.0':
-miniconda=Miniconda3-py37_4.8.2-Linux-x86_64.sh # working after fakeroot was removed and instdir was changed to ./opt/conda instead of /opt/conda
-#miniconda=Miniconda3-py312_24.5.0-0-Linux-x86_64.sh # mkdir: cannot create directory
-#miniconda=Miniconda3-py37_4.10.3-Linux-x86_64.sh # no module request
-#miniconda=Miniconda3-py37_4.9.2-Linux-x86_64.sh # no module urlib
-miniconda=Miniconda3-py37_4.12.0-Linux-x86_64.sh
-miniconda=Miniconda3-py39_4.12.0-Linux-x86_64.sh
-miniconda=Miniconda3-py39_22.11.1-1-Linux-x86_64.sh # 438: [[: not found, and switched to blas
-miniconda=Miniconda3-py312_24.9.2-0-Linux-x86_64.sh
+Miniforge3_version=25.3.1-0
+Miniforge3_file=Miniforge3-${Miniforge3_version}-Linux-x86_64.sh
 
 dwndir=downloads
 mkdir -p $dwndir
-if [[ ! -f $dwndir/$miniconda ]]; then
-    wget https://repo.anaconda.com/miniconda/$miniconda -O $dwndir/$miniconda
+if [[ ! -f $dwndir/$Miniforge3_file ]]; then
+    wget https://github.com/conda-forge/miniforge/releases/download/${Miniforge3_version}/$Miniforge3_file -O $dwndir/$Miniforge3_file
 fi
 
 cwd=`pwd`
@@ -76,7 +44,7 @@ HOME=/builddir
 
 if [ ! -d $instdir ]; then
 
-./scripts/install_conda_base.sh $dwndir/$miniconda $instdir
+./scripts/install_conda_base.sh $dwndir/$Miniforge3_file $instdir
 
 conda=$instdir/bin/conda
 
@@ -90,9 +58,8 @@ $conda env export -n base > $conda_output_env_file
 #find root/opt/ -name __pycache__ -exec rm -r {} +
 #find root/opt/ -name *.pyc -exec rm {} \;
 
-#rm root/opt/miniconda/miniconda3/pkgs/cache/*
-$conda clean -afy
-# from: https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/debian/Dockerfile
+$conda clean --force-pkgs-dirs --all --yes
+# from: https://github.com/conda-forge/miniforge-images/blob/master/ubuntu/Dockerfile
 
 $conda doctor -v
 
