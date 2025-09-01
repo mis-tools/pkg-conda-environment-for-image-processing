@@ -74,7 +74,7 @@ cwd=`pwd`
 
 HOME=/builddir
 
-if [ ! -d /opt/conda ]; then
+if [ ! -d $instdir ]; then
 
 ./scripts/install_conda_base.sh $dwndir/$miniconda $instdir
 
