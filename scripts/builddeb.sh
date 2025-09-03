@@ -6,7 +6,7 @@ script_dir=$(dirname "$0")
 cd ${script_dir}/..
 
 BUILD_NUMBER=$1
-version="1.0.0"
+version="1.1.0"
 
 conda_env_name="conda-environment-for-image-processing"
 package="pkg-${conda_env_name}"
