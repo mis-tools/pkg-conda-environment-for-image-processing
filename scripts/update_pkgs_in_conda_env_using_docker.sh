@@ -20,5 +20,4 @@ echo "gitrevnum=$gitrevnum" >> mounts/builddir/git_vars
 
 rm -rf *.deb
 docker run -i --rm -u `id -u`:`id -g` -h ${HOSTNAME}-docker --net=host -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $(pwd)/mounts/opt:/opt -v $(pwd)/mounts/builddir:/builddir -v $(pwd)/scripts:/builddir/scripts -v $(pwd)/approved_files:/builddir/approved_files -v $(pwd)/downloads:/builddir/downloads ${docker_img_name} /builddir/scripts/update_pkgs_in_conda_env.sh $@
-mv mounts/builddir/*.deb .
 #docker run -it -u `id -u`:`id -g` -h ${HOSTNAME}-docker --net=host -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $(pwd)/mounts/opt:/opt -v $(pwd)/mounts/builddir:/builddir  -v $(pwd)/scripts:/builddir/scripts -v $(pwd)/approved_files:/builddir/approved_files -v $(pwd)/downloads:/builddir/downloads ${docker_img_name} bash
