@@ -14,65 +14,9 @@ maintainer="Conda-forge <https://github.com/conda-forge/miniforge/issues>"
 arch="all"
 
 deb_root="debian"
-rm -rf ${deb_root}
-mkdir -p ${deb_root}/DEBIAN
-
-# the final build/installed conda contains: cat /opt/miniconda/miniconda3/conda | head -n 1 = /opt/miniconda/miniconda3/bin/conda
-# the conda interpreter should be used inside the conda script, else "sudo /opt/miniconda/miniconda3/bin/conda"
-# give error: "ImportError: No module named conda.cli" it gives this error because the default os python interpreters PYTHONPATH
-# do not contain the conda dir.
-# Note: fakechroot is used used so that the conda installer things it is installing it in the same location as it should in the
-# deb package, this is done becaue the conda installer writes this path into some of the conda files during installation.
-# for more information on this, see: https://groups.google.com/a/continuum.io/forum/#!topic/anaconda/TJBtuWab1DE
-# quote from source: You can never copy or move Anaconda and expect things to work. One example why not is that the 
-# “shbang” lines #!/path/to/original/bin/python are not updated by a cp or mv operation. The path either will not exist in
-# the new location, or the effect of copying it will result in using the “old locations” libraries (etc.).
-instdir=/opt/conda
-
-Miniforge3_version=25.3.1-0
-Miniforge3_file=Miniforge3-${Miniforge3_version}-Linux-x86_64.sh
-
-dwndir=downloads
-mkdir -p $dwndir
-if [[ ! -f $dwndir/$Miniforge3_file ]]; then
-    wget https://github.com/conda-forge/miniforge/releases/download/${Miniforge3_version}/$Miniforge3_file -O $dwndir/$Miniforge3_file
-fi
-
-cwd=`pwd`
-
-HOME=/builddir
-
-if [ ! -d $instdir ]; then
-
-./scripts/install_conda_base.sh $dwndir/$Miniforge3_file $instdir
-
-conda=$instdir/bin/conda
-
 conda_conf_file=approved_files/${conda_env_name}_installed.yml
-$conda env update -f $conda_conf_file
-
 conda_output_env_file=${conda_env_name}_reinstalled.yml
-$conda env export -n base > $conda_output_env_file
-
-# conda doctor reports these missing:
-#find root/opt/ -name __pycache__ -exec rm -r {} +
-#find root/opt/ -name *.pyc -exec rm {} \;
-
-$conda clean --force-pkgs-dirs --all --yes
-# from: https://github.com/conda-forge/miniforge-images/blob/master/ubuntu/Dockerfile
-
-$conda doctor -v
-
-fi
-rsync -axHAX /opt ${deb_root}/
-# the following is not used because it makes /opt/miniconda/miniconda3/bin/conda first line be
-# /usr/bin/env python and we actually want it to be /opt/miniconda/miniconda3/bin/python
-# or else when execution sudo /opt/miniconda/miniconda3/bin/conda and error is reported
-##fakechroot fakeroot chroot $root $instdir/bin/pip install conda-pack
-#fakechroot fakeroot chroot $root $instdir/bin/conda pack -p /opt/miniconda/miniconda3
-#dst=${deb_root}/opt/miniconda/miniconda3
-#mkdir -p $dst
-#tar -xzf $root/miniconda3.tar.gz --directory $dst
+${script_dir}/setup_conda_env.sh ${deb_root} ${conda_conf_file} ${conda_output_env_file}
 
 echo "Compute md5 checksum."
 cwd=$(pwd)
