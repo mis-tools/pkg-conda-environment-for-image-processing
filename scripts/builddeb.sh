@@ -18,26 +18,16 @@ conda_conf_file=approved_files/${conda_env_name}_installed.yml
 conda_output_env_file=${conda_env_name}_reinstalled.yml
 ${script_dir}/setup_conda_env.sh ${deb_root} ${conda_conf_file} ${conda_output_env_file}
 
-echo "Compute md5 checksum."
-cwd=$(pwd)
-mkdir -p ${deb_root}/DEBIAN
-cd ${deb_root}
-find . -type f ! -regex '.*?debian-binary.*' ! -regex '.*?DEBIAN.*' -print0 | tr '\0' '\n' | sort | xargs -d '\n' md5sum > DEBIAN/md5sums
-cd ${cwd}
+# generate debian/DEBIAN/md5sums
+${script_dir}/generate_dpkg_md5sums.sh ${deb_root}
 
-# .pyc files are currently not reprodicible, so they are
-# excluded from the md5sum validation process
-# see: https://github.com/python/cpython/issues/73894 and
-# https://github.com/conda/conda-package-handling/issues/1
-cat debian/DEBIAN/md5sums | grep -v ".pyc$" | grep -v "conda-meta/history$" > ${conda_env_name}.md5sums_without_pyc_and_history
-
-# approving files by:
-# cp $conda_output_env_file approved_files/${conda_env_name}_installed.yml
-
+md5sum_subset_file=${conda_env_name}.md5sums_without_pyc_and_history
+${script_dir}/md5sum_subset_extract.sh ${deb_root}/DEBIAN/md5sums ${md5sum_subset_file}
 # validate that files have not changed
-# diff -s debian/DEBIAN/md5sums approved_files/md5sums
-diff -s approved_files/${conda_env_name}.md5sums_without_pyc_and_history ${conda_env_name}.md5sums_without_pyc_and_history
-rm ${conda_env_name}.md5sums_without_pyc_and_history
+approved_md5sum_subset_file=approved_files/${md5sum_subset_file}
+diff -s ${approved_md5sum_subset_file} ${md5sum_subset_file}
+rm ${md5sum_subset_file}
+
 diff -s approved_files/${conda_env_name}_installed.yml $conda_output_env_file
 
 #date=`date -u +%Y%m%d`
