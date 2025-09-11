@@ -23,6 +23,13 @@ rsync -axHAX /opt ${deb_root}/
 #mkdir -p $dst
 #tar -xzf $root/miniconda3.tar.gz --directory $dst
 
+
+# calculate installedsize before creating DEBIAN subdir as this
+# is meta data that is not installed on the final system
+sync  # if sync is not run the `du -s` gives wrong output
+installedsize=`du -s ${deb_root}/ | awk '{print $1}'`
+
+
 # generate debian/DEBIAN/md5sums
 ${script_dir}/generate_dpkg_md5sums.sh ${deb_root}
 
@@ -72,8 +79,6 @@ if [ ! -z ${BUILD_NUMBER} ]; then
     echo "build number=${BUILD_NUMBER}"
     description="$description, build number=${BUILD_NUMBER}"
 fi
-
-installedsize=`du -s ${deb_root} | awk '{print $1}'`
 
 mkdir -p ${deb_root}/DEBIAN/
 #for format see: https://www.debian.org/doc/debian-policy/ch-controlfields.html
