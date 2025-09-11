@@ -39,17 +39,18 @@ if [ ! -d $instdir ]; then
 
 ./scripts/install_conda_base.sh $dwndir/$Miniforge3_file $instdir
 
+mamba=$instdir/bin/mamba
 conda=$instdir/bin/conda
 
-$conda env update -f $conda_conf_file
+$mamba env update --yes -f $conda_conf_file
 
-$conda env export -n base > ${conda_output_env_file}
+$mamba env export -n base > ${conda_output_env_file}
 
 # conda doctor reports these missing:
 #find root/opt/ -name __pycache__ -exec rm -r {} +
 #find root/opt/ -name *.pyc -exec rm {} \;
 
-$conda clean --force-pkgs-dirs --all --yes
+$mamba clean --force-pkgs-dirs --all --yes
 # from: https://github.com/conda-forge/miniforge-images/blob/master/ubuntu/Dockerfile
 
 $conda doctor -v
