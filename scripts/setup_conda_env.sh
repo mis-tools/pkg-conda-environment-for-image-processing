@@ -43,7 +43,7 @@ conda=$instdir/bin/conda
 
 $conda env update -f $conda_conf_file
 
-$conda env export -n base > $conda_output_env_file
+$conda env export -n base > ${conda_output_env_file}
 
 # conda doctor reports these missing:
 #find root/opt/ -name __pycache__ -exec rm -r {} +
@@ -55,13 +55,3 @@ $conda clean --force-pkgs-dirs --all --yes
 $conda doctor -v
 
 fi
-
-rsync -axHAX /opt ${deb_root}/
-# the following is not used because it makes /opt/miniconda/miniconda3/bin/conda first line be
-# /usr/bin/env python and we actually want it to be /opt/miniconda/miniconda3/bin/python
-# or else when execution sudo /opt/miniconda/miniconda3/bin/conda and error is reported
-##fakechroot fakeroot chroot $root $instdir/bin/pip install conda-pack
-#fakechroot fakeroot chroot $root $instdir/bin/conda pack -p /opt/miniconda/miniconda3
-#dst=${deb_root}/opt/miniconda/miniconda3
-#mkdir -p $dst
-#tar -xzf $root/miniconda3.tar.gz --directory $dst

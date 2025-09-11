@@ -7,20 +7,10 @@ Inspired by: [ContinuumIO miniconda3 docker-image](https://github.com/ContinuumI
 ```bash
 # build using _clean.yml to produce _installed.yml (used to upgrade pkgs)
 rm -rf mounts && ./scripts/update_pkgs_in_conda_env_using_docker.sh
-# fails if packages have been updated
-cp mounts/builddir/conda-environment-for-image-processing_installed.yml approved_files/
-rm -rf mounts && ./scripts/update_pkgs_in_conda_env_using_docker.sh
+# output changes if packages have been updated
+cp -a mounts/builddir/conda-environment-for-image-processing_installed.yml mounts/builddir/conda-environment-for-image-processing.md5sums_without_pyc_and_history approved_files/
 
-git diff approved_files/conda-environment-for-image-processing_installed.yml  # to check if and what have changed
-
-# two phases needed because using env file _clean.yml and _installed.yml does not
-# produce files with same md5sums (package management conf files).
-
-# rebuild using _installed.yml
-rm -rf mounts && ./scripts/build_using_docker.sh
-# fails if packages have been updated
-cp mounts/builddir/conda-environment-for-image-processing.md5sums_without_pyc_and_history approved_files/
-git status  # to check if and what have changed
+git status  # to check if and what have changed, use git diff of the changed files to see details
 
 rm -rf mounts && ./scripts/build_using_docker.sh
 ```
