@@ -26,6 +26,8 @@ ${script_dir}/setup_conda_env.sh ${deb_root} ${conda_conf_file} ${conda_output_e
 # update_pkgs_in_conda_env.sh vs builddeb.sh
 # $conda env update -f ${conda_output_env_file}
 
+# exit 1  # can be commented out for testing package upgrades, with conda folder symlinked
+
 # TODO: replace rsync with direct placement, see readme TODOs
 rsync -axHAX /opt ${deb_root}/
 # the following is not used because it makes /opt/miniconda/miniconda3/bin/conda first line be
