@@ -151,7 +151,7 @@ dependencies:
     - nvitop==1.5.3
     - parmap==1.7.0
     - portalocker==3.2.0
-    - pydicom==2.4.4
+    - pydicom==3.0.1
     - scikit-image==0.25.2
     - scikit-learn==1.7.2
     - scipy==1.16.2
