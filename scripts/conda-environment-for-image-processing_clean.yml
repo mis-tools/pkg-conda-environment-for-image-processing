@@ -23,7 +23,7 @@ dependencies:
     - nibabel
     - nvitop
     - portalocker
-    - pydicom==2.4.4
+    - pydicom
     - weasyprint  # to convert the html reports to pdf
     - xmltodict
     - parmap
