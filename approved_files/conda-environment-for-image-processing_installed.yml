@@ -94,8 +94,8 @@ dependencies:
   - mkl_random=1.2.8=py312h2fd27a0_1
   - ncurses=6.5=h2d0b736_3
   - nlohmann_json=3.11.3=he02047a_1
-  - numpy=2.3.3=py312h3f4ed14_0
-  - numpy-base=2.3.3=py312h6ab9638_0
+  - numpy=2.3.3=py312h3f4ed14_1
+  - numpy-base=2.3.3=py312h6ab9638_1
   - openssl=3.5.1=h7b32b05_0
   - packaging=25.0=pyh29332c3_1
   - pandas=2.3.3=py312hf79963d_1
@@ -121,7 +121,7 @@ dependencies:
   - requests=2.32.4=pyhd8ed1ab_0
   - ruamel.yaml=0.18.14=py312h66e93f0_0
   - ruamel.yaml.clib=0.2.8=py312h66e93f0_1
-  - setuptools=73.0.1=pyhd8ed1ab_0
+  - setuptools=80.9.0=pyhff2d567_0
   - simdjson=3.12.3=h84d6215_0
   - six=1.17.0=pyhe01879c_1
   - tbb=2022.2.0=hb60516a_1
