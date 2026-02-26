@@ -22,7 +22,7 @@ mkdir -p ${deb_root}
 # the new location, or the effect of copying it will result in using the “old locations” libraries (etc.).
 instdir=/opt/conda
 
-Miniforge3_version=25.3.1-0
+Miniforge3_version=26.1.0-0
 Miniforge3_file=Miniforge3-${Miniforge3_version}-Linux-x86_64.sh
 
 dwndir=downloads
