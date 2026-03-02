@@ -14,7 +14,7 @@ dependencies:
   - pandas
   - pango  # needed by weasyprint
   - pip
-  - python=3.12
+  - python=3.14
   - pip:
     - itk
     - jinja2  # to generate html reports
